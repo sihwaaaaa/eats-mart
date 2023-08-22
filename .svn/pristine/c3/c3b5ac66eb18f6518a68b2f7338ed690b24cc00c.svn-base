@@ -1,0 +1,236 @@
+package service;
+
+import static utils.CustomerUtils.nextInt;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import vo.Product;
+import java.util.Comparator;
+import java.util.HashMap;
+
+/**
+ * 
+ * 
+ * 
+ * 인터페이스에서 선언하여 필드에 상품 addProduct(), subtractProduct(), productList()를 구현 카테고리
+ * 이름을 일차원 배열로 초기화함 장바구니 담기까지의 과정.서비스를 구현 1. 과일 2. 채소 3. 육류 누르면 하위 카테고리 설정 2. 물품
+ * 개수를 입력 하세요(정수로) 3. 선택하신 "물품명" + "개수" = "총 금액" 입니다 4. 구매 하시겠습니까?
+ * 
+ * @author 박연재, 이재원
+ * 
+ */
+public class ProductServiceImpl implements ProductService {
+
+	/**
+	 * 상품 싱글턴 및 필드 선언
+	 */
+	private static ProductService productService = new ProductServiceImpl();
+
+	private ProductServiceImpl() {
+	}
+
+	public static ProductService getInstance() {
+		return productService;
+	}
+
+	// 카테고리
+	private static final String[] CATEGORY_NAME = { FRUIT, VEGETABLE, MEAT };
+
+	// 상품명
+	private static final String[] FRUIT_NAME = { APPLE, PEAR, WATERMELON, MELON, BANANA, STRAWBERRY };
+	private static final String[] VEGETABLES = { CARROT, CUCUMBER, GARLIC, CABBAGE, BROCCOLI, LETTUCE };
+	private static final String[] MEAT_NAME = { PORK_BELLY, BEEF, CHICKEN, SAUSAGE, SPAM, LAMB };
+	private static final String[][] ALL_PRODUCT = { FRUIT_NAME, VEGETABLES, MEAT_NAME };
+
+	// Map을 활용하여 카테고리 맵 구현
+	private Map<Integer, Map> categoryMap = new HashMap<Integer, Map>(); // 번호를 입력받으면 해당 카테고리 값을 받아옴 O(1)
+	private Map<Integer, Product> productMap; // 맵 형태로 선언한 상품 리스트 (진열장) O(1)
+	private List<Product> currentProductList = new ArrayList<Product>(); // 보유하고 있는 고객의 상품
+	// sort()용도로 선언
+	private Set set;
+	private List<Entry<Integer, Product>> productList;
+
+	/**
+	 * 상위 카테고리 및 카테고리별로 상품들 생성
+	 * 
+	 */
+	public void initCategoryWithProducts() {
+
+		// 카테고리 맵 생성
+		int cnt = 5;
+
+		for (int i = 0; i < CATEGORY_NAME.length; i++) {
+			categoryMap.put(i + 1, new HashMap<Integer, Product>());
+
+		}
+
+		// 카테고리맵에 카테고리 종류 맵 형태로 저장(상품 아님)
+		int idx = 0;
+		for (int i = 0; i < ALL_PRODUCT.length; i++) {
+
+			productMap = categoryMap.get(i + 1);
+			for (int j = 0; j < ALL_PRODUCT[i].length; j++) {
+				productMap.put(++idx, new Product(idx, ALL_PRODUCT[i][j], PRODUCT_PRICE, cnt));
+
+			}
+			sort();
+		}
+
+	}
+
+	/**
+	 * @author 박연재, 이재원
+	 * @param no
+	 * @return
+	 */
+	@Override
+	public void findBy(int no) {
+//		productList = new ArrayList<Product>();
+		StringBuilder sb = new StringBuilder();
+		if (categoryMap.containsKey(no--)) {
+			System.out.println("=================" + CATEGORY_NAME[no] + "====================");
+			System.out.println("  번호       상품명       가격       재고");
+			System.out.println();
+			++no;
+
+			
+
+			for (int i = 0; i < productMap.size(); i++) {
+				Map<Integer, Product> map = categoryMap.get(no);
+				int idx = i + 1;
+				
+				if(no == 1) {
+					System.out.println(String.format("%s", map.get(idx).toString()));
+				}else if(no == 2) {
+					System.out.println(String.format("%s", map.get(productMap.size() + idx).toString()));
+				}else if(no == 3) {
+					System.out.println(String.format("%s", map.get(2 * productMap.size() + idx).toString()));
+				}
+				
+				
+
+			}
+//			for (Map.Value< Product> entry : productMap.) {
+//				sb.append(String.format("%s", entry.getValue())).append("\n");
+//			}
+//			System.out.println(sb);
+		}
+	}
+
+	/**
+	 * 
+	 * 
+	 * @author 박연재 상품 추가
+	 * 
+	 * 
+	 * 
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void add(int categoryNo, int selectNo) {
+
+		productMap = categoryMap.get(categoryNo);
+		currentProductList.add(productMap.get(selectNo));
+		System.out.println("상품을 성공적으로 추가하였습니다.");
+		System.out.println(currentProductList.get(0));
+		sort();
+	}
+
+	public static void main(String[] args) {
+		productService.initCategoryWithProducts();
+		productService.findBy(2);
+		int input = nextInt("추가하실 상품을 고르세요 : ");
+		productService.add(2, input);
+		input = nextInt("추가하실 상품을 고르세요 : ");
+		productService.add(2, input);
+		productService.remove();
+	}
+
+	@Override
+	public Product findByProductNo(int no) {
+		Product product = null;
+		for (int i = 0; i < currentProductList.size(); i++) {
+			if (currentProductList.get(i).getNo() == no) {
+				product = currentProductList.get(i);
+				break;
+			}
+		}
+		return product;
+	}
+
+	@Override
+	public void remove() {
+		currentProductList.remove(findByProductNo(nextInt("삭제하실 상품을 선택하세요 : ")));
+		System.out.println(currentProductList.get(0));
+		sort();
+	}
+
+	/**
+	 * @author 이시화 sort기능 추가 list product 선언 수정 필요
+	 *
+	 */
+	public void sort() {
+		set = productMap.entrySet();
+		productList = new ArrayList<Entry<Integer, Product>>(set);
+		productList.sort(new Comparator<Entry<Integer, Product>>() {
+			@Override
+			public int compare(Entry<Integer, Product> o1, Entry<Integer, Product> o2) {
+				// TODO Auto-generated method stub
+				return -(o1.getValue().getNo() - o2.getValue().getNo());
+			}
+
+		});
+
+	}
+
+}
+
+//	private Set<Product> setpro = new TreeSet<Product>(); // 중복없이 정렬할 수 있는 set 인터페이스 선언
+
+// String타입 일차원 배열로 선언 및 초기화한 상품명
+// 접근제어자 private으로 설정해서 클래스 상수에 접근하지 못하도록 막아둠.
+//	private static final String[] ELECTRONIC_PRODUCTS_NAME = { COMPUTER, TELEPHONE, TELEVISION, MONITER, CALCULATOR,
+//			RADIO, REFRIGERATOR, AIR_CONDITIONER };
+//	private static final String[] NUTS_NAME = { WALNUT, PEANUT, ALMOND, CASHEW_NUTS, PISTACHIO, HAZELNUT };	
+//	public void printList() {
+//		Set set = categoryMap.entrySet();
+//		Iterator it = set.iterator();
+//
+//		while (it.hasNext()) {
+//			Map.Entry e = (Map.Entry) it.next();
+//
+//			Set subSet = ((HashMap) e.getValue()).entrySet();
+//			Iterator subIt = subSet.iterator();
+//
+//			System.out.println("========" + e.getKey() + e.getValue() + "=========");
+//
+//			while (subIt.hasNext()) {
+//				Map.Entry subE = (Map.Entry) subIt.next();
+//				String categoryName = (String) subE.getKey();
+//				String pInfo = (String) subE.getValue().toString();
+//				System.out.println(categoryName + " " + pInfo);
+//			}
+//		}
+//	}
+
+//			findkey = categoryMap.get(no).keySet();
+// 모든 상품 리스트 보여줘
+//			for(Product p : productMap.values()) {
+//				sb.append(p);
+//			}
+//			
+//			Iterator<String> keys = productMap.keySet().iterator();
+//			while(keys.hasNext()) {
+//				String key = keys.next();
+//				System.out.println(String.format("%s %s",key, productMap.get(key)));
+//			}
+//			System.out.println(productMap.get(findkey));
+//		no--; // hashmap의 idx 번호는 0번부터 시작하기 때문에 증감연산자를 활용해서 1부터 시작
+//		Product product = null;
+//		for (Product p : listProduct) {
+//			System.out.println(p);
+//		}

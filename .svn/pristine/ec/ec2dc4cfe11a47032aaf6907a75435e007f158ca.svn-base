@@ -1,0 +1,21 @@
+package team3;
+
+public interface Service {
+	
+	void Customer();//고객정보
+	void Product();//상품정보
+	void Cart();//장바구니
+	void buy();//구매기능, 주문서
+	void CustomerService();//회원가입
+	
+	/** 담당영역 표시 예시
+	 * @author  이시화
+	 * @since 23/02/26
+	 * @param no 학번
+	 * @return 탐색결과 학생인스턴스, 미탐색시 null
+	 * 
+	 * 
+	 */
+	
+	
+}

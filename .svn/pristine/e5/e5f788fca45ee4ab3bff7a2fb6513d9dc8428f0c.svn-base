@@ -1,0 +1,113 @@
+package service;
+
+import static utils.CustomerUtils.nextInt;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import vo.Buy;
+import vo.Cart;
+import vo.Customer;
+import vo.Product;
+import java.util.Comparator;
+
+public class ProductServiceImpl {
+
+	private List<Product> listProduct = new ArrayList<Product>();
+	private Set<Product> setpro = new TreeSet<Product>();
+
+	// 장바구니 담기까지의 과정.서비스를 구현
+	// 키오스크가 앞에있다고 생각하자.
+	// 구현 순서.
+	// 0. 카데고리 설정 1. 과일, 2. 가전제품 3. 생필품 4. 사무용품
+	// 조회
+	// 1. 과일을 누르면 하위 카테고리 설정
+	//
+	// 1. 물품명을 입력 하세요(정수로), (등록) 등록하는 레지스터 처럼
+	// 2. 물품 개수를 입력 하세요(정수로)
+	// 3. 선택하신 "물품명" + "개수" = "총 금액" 입니다
+	// 4. 구매 하시겠습니까?
+
+	/**
+	 * @author 이시화 sort기능 추가 list product 선언 수정 필요
+	 *
+	 */
+	public void Sort() {
+		listProduct.sort(new Comparator<Product>() {
+			@Override
+			public int compare(Product o1, Product o2) {
+				// TODO Auto-generated method stub
+				return o1.getNo() - o2.getNo();
+			}
+
+		});
+
+	}
+
+	public static void main(String[] args) {
+		ProductServiceImpl Pro = new ProductServiceImpl();
+		Pro.category();
+	}
+
+	public Product findBy(int no) { // 카테고리 번호 찾는 메서드 만들기
+		Product product = null;
+		for (int i = 0; i < listProduct.size(); i++) {
+			if (listProduct.get(i).getNo() == no) {
+				product = listProduct.get(i);
+				break;
+			}
+		}
+		return product;
+	}
+
+	{ // 상위 카데고리 초기화 블럭
+
+	}
+
+	public void category() { // 상위 카테고리 조회
+		Collection<Product> p = null;
+		int category = 0;
+		listProduct.add(new Product(category, "과일"));
+		listProduct.add(new Product(category, "채소"));
+		listProduct.add(new Product(category, "육류"));
+		listProduct.add(new Product(category, "전자제품"));
+		listProduct.add(new Product(category, "카페"));
+		p = listProduct;
+		for (Product p1 : p) {
+			category++;
+			System.out.println(p1);			
+		}
+
+	}
+}
+
+//		Collection<Product> p1 = null;		
+//		System.out.println("1 : 과일    2 : 생필품    3 : 가전제품    4 : 전자제품    5 : 사무용품");
+//		
+//		
+//		
+//		
+//		switch (nextInt("구매할 상품의 번호를 입력하세요")) {
+//		case 1:
+//			p = listProduct;
+//			break;
+//		case 2:
+//			// 2번의 하위 카테고리 출력
+//			break;
+//		case 3:
+//			// 3번의 하위 카테고리 출력
+//			break;
+//		case 4:
+//			// 4번의 하위 카테고리 출력
+//			break;
+//		case 5:
+//			// 5번의 하위 카테고리 출력
+//			break;
+//		default:
+//			System.out.println("1~5의 값을 입력해 주세요");
+//			break;
+//		}
+//		for (Product pp : p) {
+//			System.out.println(pp);
+//		}

@@ -1,0 +1,169 @@
+package service;
+
+// nextint, nextLine import
+import static utils.CustomerUtils.nextInt;
+import static utils.CustomerUtils.nextLine;
+
+
+import java.util.ArrayList;
+
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
+
+import utils.CustomerUtils;
+import vo.Customer;
+import java.util.Set;
+public class CustomerServiceImpl implements CustomerService {
+	
+	private List<Customer> customers = new ArrayList<Customer>();
+	private Set<Customer> sortedCustomer = new TreeSet<>();
+	private Customer customer;//?
+	
+	/**
+	 *@author 이시화
+	 *findBy 메서드 구현  
+	 * int no과 String id 추출위해 
+	 */
+	Customer findBy(int no) {
+		Customer customer = null;
+		for (int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).getNo() == no) {
+				customer = customers.get(i);
+				break;
+			}
+			
+		}
+		return customer;
+	}
+	Customer findBy(String id) {
+		Customer customer = null;
+		for (int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).getId() == id) {
+				customer = customers.get(i);
+				break;
+			}
+			
+		}
+		return customer;
+	}
+	/**
+	 * @author 이창용
+	 * register 메서드 구현 
+	 */
+	/**
+	 * @author 이시화
+	 * no값 생성 조건 구현 예정
+	 */
+	@Override
+	public void register() {
+		System.out.println("================= 회원 가입 =====================");
+//		int sum = 0;
+		int no = 0;
+//		for (int i = 0; i < customers.size() +1 ; i++) {
+			// list()
+//			customers.get(i).setNo(no); //no값 집어넣기 => list의 값이 들어가 있지 않는 상태이기 때문에 Index 0 out of bounds for length 0 예외 에러가 나온다.
+//			no++;//지역변수값 증감
+//			if (customers.get(i).getNo() == no) {
+//			}	
+//		}
+		
+		
+		
+		String id = nextLine("아이디를 입력해 주세요 :");
+		String password = nextLine("비밀번호를 입력해 주세요 :"); //CustomerUtils Scanner 호출	 	
+		String address = nextLine("주소를 입력해주세요 :");	
+		
+		customer = new Customer (no++ , id, password, address, 100000);
+		System.out.println(no);
+		customers.add(customer);
+	}
+
+	{
+		register();
+		list();
+		modify();
+		list();
+		
+	}
+	
+	public static void main(String[] args) {
+		CustomerServiceImpl csi = new CustomerServiceImpl();
+	}
+
+	/**
+	 * 
+	 * @author 박연재
+	 * 
+	 */
+	@Override
+	public void modify() {
+		
+		/*
+		 * 회원 수정
+		 * 싱글톤 써야할까 고민중입니다. 
+		 * 
+		 * 
+		 */
+		while(true) {
+			System.out.println("================= 회원 수정 =====================");
+//			String modifyMenu = "1. 아이디   2. 비밀번호   3. 주소";	// 회원 수정 메뉴
+//			int input = CustomerUtils.nextInt(modifyMenu);
+
+			String id = nextLine("아이디를 입력해 주세요 : "); // 아이디 입력 받음
+			String password = nextLine("비밀번호를 입력해 주세요 : "); // 비밀번호를 입력 받음
+			String address = nextLine("주소를 입력해 주세요 : "); // 주소를 입력 받음
+			
+			
+			if(customer.getId() == id) {	// 아이디 유효성 검증
+				System.out.println("기존의 아이디를 중복해서 입력하셨습니다.");
+				return;
+			}else if(customer.getPassword() == password) {	// 비밀번호 유효성 검증
+				System.out.println("기존의 패스워드를 중복해서 입력하셨습니다.");
+				return;
+			}else if(customer.getAddress() == address) {	// 주소 유효성 검증
+				System.out.println("기존의 주소를 중복해서 입력하셨습니다.");
+				return;
+			}else {
+				customer.setId(id);
+				customer.setPassword(password);
+				customer.setAddress(address);
+				System.out.println("회원 수정을 완료하였습니다.");
+				return;
+			}
+
+		}
+
+	}
+	/**
+	 * @author 이시화
+	 * delete 메서드 구현
+	 */
+	@Override
+	public void delete() {
+		System.out.println("================= 회원 삭제 =====================");
+		customers.remove(findBy(nextLine("삭제할 회원의 아이디를 입력하세요")));
+	}
+
+	@Override
+	public void list() { // 회원번호순 정렬
+		System.out.println("================= 회원 조회 =====================");
+		Collection<Customer> c2 = customers;// 커스터머 리스트를 담는 공간
+//		Collections.sort(c2); //정렬하고 싶은데 오류남
+
+		System.out.println("회원번호   ID   PASSWORD   주소   자산");// 출력구분
+		System.out.println("======================================");// 구분선
+		for (Customer c1 : c2) {// 향상for문으로 c1의 리스트 출력
+			System.out.println(c1);
+
+		}
+	}
+	@Override
+	public void sort() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

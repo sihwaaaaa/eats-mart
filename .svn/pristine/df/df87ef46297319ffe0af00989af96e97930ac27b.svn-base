@@ -1,0 +1,161 @@
+package service;
+
+import static utils.CustomerUtils.nextInt;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
+import vo.Buy;
+import vo.Cart;
+import vo.Customer;
+import vo.Product;
+import java.util.Comparator;
+import java.util.HashMap;
+
+/**
+ * 
+ * 
+ * @author 박연재, 이재원 상품 카테고리, 이름, 가격 단위 및 기능들을 인터페이스에서 선언하여 필드에 상품 addProduct(),
+ * subtractProduct(), productList()를 구현
+ * 
+ * 
+ * 
+ * 
+ */
+public class ProductServiceImpl implements ProductService {
+
+	// 전역 변수 (필드)
+	private List<Product> listProduct = new ArrayList<Product>(); // 상품 담을 리스트 공간
+	private Set<Product> setpro = new TreeSet<Product>(); // 중복없이 정렬할 수 있는 set 인터페이스 선언
+
+	// String타입 일차원 배열로 선언 및 초기화한 상품명
+	// 접근제어자 private으로 설정해서 클래스 상수에 접근하지 못하도록 막아둠.
+
+	// 카테고리
+	private static final String[] CATEGORY_NAME = { FRUIT, VEGETABLE, MEAT, ELECTRONIC_PRODUCTS, NUTS };
+
+	// 상품명
+	private static final String[] FRUIT_NAME = { APPLE, PEAR, MEAT, WATERMELON, MELON, BANANA, STRAWBERRY, KIWI };
+	private static final String[] VEGETABLES = { CARROT, CUCUMBER, GARLIC, CABBAGE, BROCCOLI, LETTUCE };
+	private static final String[] MEAT_NAME = { PORK_BELLY, BEEF, CHICKEN, SAUSAGE, SPAM, LAMB };
+	private static final String[] ELECTRONIC_PRODUCTS_NAME = { COMPUTER, TELEPHONE, TELEVISION, MONITER, CALCULATOR,
+			RADIO, REFRIGERATOR, AIR_CONDITIONER };
+	private static final String[] NUTS_NAME = { WALNUT, PEANUT, ALMOND, CASHEW_NUTS, PISTACHIO, HAZELNUT };
+
+	private static final String[][] ALL_PRODUCT = { 
+			FRUIT_NAME, VEGETABLES, MEAT_NAME, ELECTRONIC_PRODUCTS_NAME, NUTS_NAME 
+	};
+	private Map<Integer, String> categoryMap = new HashMap<Integer, String>(); // 카테고리 맵 구현
+	// 상품 싱글턴
+	private static ProductService productService = new ProductServiceImpl();
+	private ProductServiceImpl() {
+		initCategory();
+	}
+	public static ProductService getInstance() {
+		return productService;
+	}
+
+	// 카테고리 이름을 일차원 배열로 초기화함
+
+	// 장바구니 담기까지의 과정.서비스를 구현
+	// 키오스크가 앞에있다고 생각하자.
+	// 구현 순서.
+	// 0. 카데고리 설정 1. 과일, 2. 가전제품 3. 생필품 4. 사무용품
+	// 조회
+	// 1. 과일을 누르면 하위 카테고리 설정
+	//
+	// 1. 물품명을 입력 하세요(정수로), (등록) 등록하는 레지스터 처럼
+	// 2. 물품 개수를 입력 하세요(정수로)
+	// 3. 선택하신 "물품명" + "개수" = "총 금액" 입니다
+	// 4. 구매 하시겠습니까?
+
+	/**
+	 * @author 이시화 sort기능 추가 list product 선언 수정 필요
+	 *
+	 */
+	public void sort() {
+		listProduct.sort(new Comparator<Product>() {
+			@Override
+			public int compare(Product o1, Product o2) {
+				// TODO Auto-generated method stub
+				return o1.getNo() - o2.getNo();
+			}
+
+		});
+
+	}
+
+	/**
+	 * 
+	 * @author 박연재
+	 * 
+	 */
+	public void initCategory() { // 상위 카테고리 생성
+		// 카테고리맵에 카테고리 종류 맵 형태로 저장(상품 아님)
+		for (int i = 0; i < ALL_PRODUCT.length; i++) {
+			for (int j = 0; j < ALL_PRODUCT[i].length; j++) {
+//				categoryMap.put(CATEGORY_NAME[i], ALL_PRODUCT[i][j]);
+			}
+		}
+
+	}
+
+	/**
+	 * @author 박연재, 이재원
+	 * @param no
+	 * @return
+	 */
+	public List<Product> findBy(int no) { // 메뉴의 번호를 입력받으면 상품 리스트가 출력됨
+		no++;	// hashmap의 idx 번호는 0번부터 시작하기 때문에 증감연산자를 활용해서 1부터 시작
+		Product product = null;
+		if(categoryMap.containsKey(no)) {
+			no--;
+			System.out.println("===================" + CATEGORY_NAME[no] + "=====================");
+//			String menu = String.format("%4d    %4s    %4d    %4d", )
+		}
+		for(Product p : listProduct) {
+			System.out.println(p);
+		}
+//		for (int i = 0; i < listProduct.size(); i++) {
+//			if (listProduct.get(i).getNo() == no) {
+//				product = listProduct.get(i);
+//				break;
+//			}
+//		}
+		return null;
+	}
+	/**
+	 * 
+	 * 
+	 * @author 박연재
+	 * 상품 추가
+	 * 
+	 */
+	@Override
+	public void addProduct(Product product) {
+		listProduct.add(product);
+		System.out.println(listProduct.get(0));
+	}
+
+	public static void main(String[] args) {
+		ProductService service = (ProductServiceImpl) new ProductServiceImpl();
+		service.addProduct(new Product(ONE_HUNDRED, AIR_CONDITIONER, FIVE_THOUSAND, FIVE_HUNDRED));
+		System.out.println(service.findByOneProductList(0).toString());
+
+	}
+
+	@Override
+	public List<Product> findByOneProductList(int no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void subtractProduct(Product product) {
+		// TODO Auto-generated method stub
+		
+	}
+}

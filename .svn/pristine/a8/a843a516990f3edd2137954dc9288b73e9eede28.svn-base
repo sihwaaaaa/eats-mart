@@ -1,0 +1,42 @@
+package vo;
+/**
+ * 
+ * @author 이재원
+ * Get, Set / Using Field / ToString / 기본생성자 선언
+ */
+public class Cart {
+	private int totalPrice; // 상품 총 금액
+	private int totalcnt; // 상품 총 갯수
+
+	public Cart(int totalPrice, int totalcnt) {
+		super();
+		this.totalPrice = totalPrice;
+		this.totalcnt = totalcnt;
+	}
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public int getTotalcnt() {
+		return totalcnt;
+	}
+
+	public void setTotalcnt(int totalcnt) {
+		this.totalcnt = totalcnt;
+	}
+
+	public Cart() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+}

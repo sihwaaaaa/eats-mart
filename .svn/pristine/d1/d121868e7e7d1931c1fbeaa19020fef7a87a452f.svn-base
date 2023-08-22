@@ -1,0 +1,79 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import vo.Buy;
+import vo.Cart;
+import vo.Customer;
+
+public class BuyServiceImpl implements BuyService {
+
+	CustomerServiceImpl csi = CustomerServiceImpl.getInstance();
+//	ProductServiceImpl psi = ProductServiceImpl.getInstance();
+//	CartServiceImpl csv = CartServiceImpl.getInstance();
+
+	private Buy buy;
+
+	/**
+	 * @author 이시화 sort기능 추가 list buys 선언 - 수정 필요
+	 *
+	 */
+	List<Buy> buys = new ArrayList<>();
+
+	public void buySort() {
+		buys.sort(new Comparator<Buy>() {
+			@Override
+			public int compare(Buy o1, Buy o2) {
+				// TODO Auto-generated method stub
+				return o1.getNo() - o2.getNo();
+			}
+
+		});
+	}
+
+	// 주문서 불러오기
+	@Override
+	public void getOrder(Customer customer, Cart cart) {
+		buy = new Buy();
+		String sum = null;
+		if (csi.customer == csi.findBy(customer.getNo())) { // 만약에 번호를 입력받아서 조회된 회원이 일치하면,
+
+			System.out.println("===================== 주문서 ======================");
+			System.out.println("고객명    (상품별)    상품갯수   총 금액");
+			sum = String.format("%4s    %4d    %4d", csi.customer.getId(), cart.getTotalcnt(),
+					cart.getTotalPrice());
+			
+
+		}
+		
+		System.out.println("================ 주문서 ================");
+		System.out.println("고객명    (상품별)    상품갯수   총 금액");
+		sum = String.format("%4s    %4d    %4d", customer.getId(), cart.getTotalcnt(),
+				cart.getTotalPrice());
+
+		System.out.println(sum);
+	}
+	
+
+	
+	
+	public static void main(String[] args) {
+		BuyServiceImpl bsi = new BuyServiceImpl();
+		bsi.getOrder(new Customer(0, "w","w","W",1000), new Cart(100, 33));
+		System.out.println();
+	}
+
+	@Override
+	public void decideBuy() {
+
+	}
+
+	@Override
+	public void sort() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

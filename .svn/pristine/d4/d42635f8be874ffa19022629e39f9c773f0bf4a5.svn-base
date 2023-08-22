@@ -1,0 +1,57 @@
+package service;
+
+import vo.Customer;
+
+public interface CustomerService {
+	
+	
+	
+	/**
+	 * 
+	 * @author tj  
+	 * 
+	 * 
+	 * 
+	 */
+	
+	void list();
+	
+	
+	/**
+	 *
+	 * @author 이시화
+	 * 
+	 * 
+	 */
+	
+	
+	void register();//회원정보 등록
+	
+	
+	/**
+	 *
+	 * @author 이창용
+	 * 
+	 * 
+	 */
+	
+	
+	void modify();// 수정
+	
+	
+	
+	
+	void delete();//삭제
+	/** 
+	 * @author  이시화
+	 * @since 23/02/06
+	 * buy 필드 생성, 메서드 일부 구현 예정
+	 * 
+	 */
+	void sort();
+	
+	Customer login();
+	Customer getLoginUser();
+	
+	
+}

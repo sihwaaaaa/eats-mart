@@ -1,0 +1,32 @@
+package team3;
+
+/**
+ * 
+ * @author 
+ *
+ */
+public class Cart {
+	private Customer customer;
+	private Product product;
+	private int totalPrice = 0;
+	private int totalCnt = 0;
+	
+	
+	public Cart(Customer customer, Product product) {
+		
+		this.customer = customer;
+		this.product = product;
+		
+	}
+	
+	public int totalPrice() {
+		return totalPrice;
+	}
+	
+	
+	
+	
+	
+	
+	
+}

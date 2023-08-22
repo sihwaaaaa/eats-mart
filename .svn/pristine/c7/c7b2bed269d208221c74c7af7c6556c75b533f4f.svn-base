@@ -1,0 +1,16 @@
+package service;
+
+import vo.Order;
+import vo.Cart;
+import vo.Customer;
+
+public interface OrderService {
+
+    void buy(Customer customer, Cart cart);
+
+//    void sort();
+//    void getOrder(Customer customer, Cart cart);
+
+
+//    void decideBuy();
+}

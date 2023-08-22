@@ -1,0 +1,157 @@
+package service;
+
+
+import static utils.CustomerUtils.*;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.List;
+
+import vo.Order;
+import vo.Cart;
+import vo.Customer;
+
+public class OrderServiceImpl implements OrderService {
+	/**
+	 * @author 이시화 싱글턴
+	 */
+	private static OrderService orderService = new OrderServiceImpl();
+
+	private OrderServiceImpl() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static OrderService getInstance() {
+		return orderService;
+	}
+
+	/**
+	 * @이시화 필드선언 및 싱글턴
+	 */
+	CustomerService customerService = CustomerServiceImpl.getInstance();
+	CartService cartService = CartServiceImpl.getInstance();
+	ProductService productService = ProductServiceImpl.getInstance();
+
+	private List<Order> orders = new ArrayList<Order>();// 지금까지 주문서모음 매출조회 위해서
+	private Customer user = customerService.getLoginUser();
+//	private Cart userCart = user.getCart().list(); //커스터머가 가지고 있는 카트를 리스트 담기
+
+	/**
+	 * findby 선언
+	 */
+	private Order findBy(int no) {
+		Order order = null;
+		for (int i = 0; i < orders.size(); i++) {
+			if (orders.get(i).getNo() == no) {
+				order = orders.get(i);
+				break;
+			}
+		}
+		return order;
+	}	
+	/**
+	 * @author 이시화 구매 기능 구현 구매 버튼시 장바구니 불러와서 출력
+	 */
+
+	@Override
+	public void buy(Customer customer, Cart cart) {
+		int no = 0;
+		if (orders.isEmpty()) {
+			no = 1;
+		}else {
+			no = orders.get(orders.size() - 1).getNo() + 1;
+		}
+
+		Calendar orderTime = Calendar.getInstance();// 호출시점에 현재 시간 지정
+		System.out.println("=====================" + user.getId() + "님 주문서 ======================");
+		System.out.println("주문일시 :" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));// 주문시각 출력
+		System.out.println(); // userCart.tostring;?? 카트의 투스트링 가져와서 출력
+//		System.out.println("상품 총 갯수 :" + userCart.getTotalCnt + "총 결제 금액 :" + userCart.getTotalPrice);//주문서 총 금액 및 총 갯수
+		// 재고 빼기
+//		Order order = new Order(no, orderTime, userCart);
+//		orders.add(order);
+	}
+
+	/**
+	 * 매출 조회(관리자 시점) 현재까지의 매출
+	 */
+	public void sales() {
+		int sales = 0;
+		int cnt = 0;
+		for (int i = 0; i < orders.size(); i++) {
+			sales += orders.get(i).getCart().getTotalPrice();
+		}
+		for (int j = 0; j < orders.size(); j++) {
+			cnt += orders.get(j).getCart().getTotalcnt();
+		}
+		System.out.println("현재까지의 총 주문 건수는" + orders.size() + "건이며 총 상품 판매 개수는" + cnt + "개, 총매출은" + sales + "원입니다.");
+
+	}
+
+	/**
+	 * 현재까지 주문서 각각 불러오기 (주문번호로)(관리자시점)
+	 * 주문번호 받아서 해당투스트링
+	 */
+	public void salesList() {
+		System.out.println("=================== 주문서 조회 ===================");
+		Order order = findBy(nextInt("주문번호를 입력해주세요"));
+		if(order.equals(null)) {//예외값 처리
+			System.out.println("해당하는 주문번호가 없습니다");
+			return;
+		}
+		System.out.println(order.toString());
+			
+		
+
+	}
+	// 주문서 불러오기
+
+//	@Override
+//	public void getOrder(Customer customer, Cart cart) {
+//		buy = new Order();
+//		String sum = null;
+//		if (csi.customer == csi.findBy(customer.getNo())) { // 만약에 번호를 입력받아서 조회된 회원이 일치하면,
+//
+//			System.out.println("===================== 주문서 ======================");
+//			System.out.println("고객명    (상품별)    상품갯수   총 금액");
+//			sum = String.format("%4s    %4d    %4d", csi.customer.getId(), cart.getTotalcnt(), cart.getTotalPrice());
+//
+//		}
+//
+//		System.out.println("================ 주문서 ================");
+//		System.out.println("고객명    (상품별)    상품갯수   총 금액");
+//		sum = String.format("%4s    %4d    %4d", customer.getId(), cart.getTotalcnt(), cart.getTotalPrice());
+//
+//		System.out.println(sum);
+//	}
+
+//	public static void main(String[] args) {
+//		OrderServiceImpl bsi = new OrderServiceImpl();
+//		bsi.getOrder(new Customer(0, "w", "w", "W", 1000), new Cart(100, 33));
+//		System.out.println();
+//	}
+
+//	@Override
+//	public void decideBuy() {
+//
+//	}
+//
+//	@Override
+//	public void sort() {
+//		// TODO Auto-generated method stub
+//
+//	}
+//	public void buySort() {
+//		buys.sort(new Comparator<Order>() {
+//			@Override
+//			public int compare(Order o1, Order o2) {
+//				// TODO Auto-generated method stub
+//				return o1.getNo() - o2.getNo();
+//			}
+//
+//		});
+//	}
+
+}

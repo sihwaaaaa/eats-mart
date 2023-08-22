@@ -1,0 +1,29 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import vo.Product;
+
+public class ProductServiceImpl {
+	/**
+	 * @author 이시화 
+	 * sort기능 추가
+	 * list product 선언
+	 * 수정 필요 
+	 *
+	 */
+	List<Product> products = new ArrayList<Product>();
+	public void Sort() {	
+		products.sort(new Comparator<Product>() {
+				@Override
+				public int compare(Product o1, Product o2) {
+					// TODO Auto-generated method stub
+					return o1.getNo() - o2.getNo();
+				}
+				
+			});
+			
+		}
+}

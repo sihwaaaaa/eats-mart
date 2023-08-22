@@ -1,0 +1,44 @@
+package team3;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+public class CustomerService implements Service{
+	List<Customer> customers = new ArrayList<Customer>();
+	
+	@Override
+	public void register() {
+//	int no = checkRange(nextlnt("등록 번호를 입력하세요"), 1, 10);
+//	if(findBy(no) != null) {
+//		System.out.println("등록이 완료되었습니다");
+//		}
+	
+		
+	}
+	
+	
+	@Override
+	public void modify() {
+		
+	}@Override
+	public void delete() {
+		
+	}
+	@Override
+	public void list() { //회원번호순 정렬
+		
+		Collection<Customer> c2 = customers;//커스터머 리스트를 담는 공간
+//		Collections.sort(c2); //정렬하고 싶은데 오류남
+		
+		System.out.println("회원번호   ID   PASSWORD   주소   자산");//출력구분
+		System.out.println("======================================");//구분선
+		for(Customer c1 : c2) {//향상for문으로 c1의 리스트 출력
+			System.out.println(c1);
+			
+		}
+	}
+	
+	
+}

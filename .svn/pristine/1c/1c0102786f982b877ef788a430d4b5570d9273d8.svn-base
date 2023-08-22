@@ -1,0 +1,28 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import vo.Buy;
+
+public class BuyServiceImpl {
+	
+	/**
+	 * @author 이시화 
+	 * sort기능 추가
+	 * list buys 선언 - 수정 필요 
+	 *
+	 */
+	List<Buy> buys = new ArrayList<>();
+	public void buySort() {
+		buys.sort(new Comparator<Buy>() {
+			@Override
+			public int compare(Buy o1, Buy o2) {
+				// TODO Auto-generated method stub
+				return o1.getNo() - o2.getNo();
+			}
+			
+		});
+	}
+}

@@ -1,0 +1,76 @@
+package service;
+
+import java.util.ArrayList;
+
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
+
+import utils.CustomerUtils;
+import vo.Customer;
+import java.util.Set;
+public class CustomerServiceImpl implements CustomerService {
+	
+	private List<Customer> customers = new ArrayList<Customer>();
+	private Set<Customer> sortedCustomer = new TreeSet<>();
+	private Customer customer;
+	
+	Customer findBy(int no) {
+		Customer customer = null;
+		for (int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).getNo() == no) {
+				customer = customers.get(i);
+				break;
+			}
+			
+		}
+		return customer;
+	}
+	
+	
+// int no, int money, String id, String password, String address
+	@Override
+	public void register() {
+		int no = 1001; //테스트용 더미 데이터
+		int money = 1000000; //테스트용 더미 데이터
+		String id = CustomerUtils.nextLine("아이디를 입력해 주세요 :");
+		int password = CustomerUtils.nextInt("비밀번호를 입력해 주세요 :"); //CustomerUtils Scanner 호출		
+		String address = CustomerUtils.nextLine("주소를 입력해주세요 :");		
+	
+		
+	}
+	
+	
+//	private int no; // 회원번호
+//	private int money; // 자산
+//	private String id; // 아이디
+//	private String password; // 비밀번호
+//	private String address; // 주소
+	@Override
+	public void modify() {
+		
+	}
+
+	@Override
+	public void delete() {
+		 customers.remove(findBy(CustomerUtils.nextInt("삭제할 회원의 회원번호를 입력하세요")));
+		
+	}
+
+	@Override
+	public void list() { // 회원번호순 정렬
+
+		Collection<Customer> c2 = customers;// 커스터머 리스트를 담는 공간
+//		Collections.sort(c2); //정렬하고 싶은데 오류남
+
+		System.out.println("회원번호   ID   PASSWORD   주소   자산");// 출력구분
+		System.out.println("======================================");// 구분선
+		for (Customer c1 : c2) {// 향상for문으로 c1의 리스트 출력
+			System.out.println(c1);
+
+		}
+	}
+
+}

@@ -1,0 +1,9 @@
+package team3;
+
+public class Buy {
+	int no;//주문번호
+	int sales;//매출
+	
+	
+	
+}

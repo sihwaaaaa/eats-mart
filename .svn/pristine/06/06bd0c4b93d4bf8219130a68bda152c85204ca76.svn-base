@@ -1,0 +1,99 @@
+package service;
+
+// nextint, nextLine import
+import static utils.CustomerUtils.nextInt;
+import static utils.CustomerUtils.nextLine;
+
+
+import java.util.ArrayList;
+
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
+
+import utils.CustomerUtils;
+import vo.Customer;
+import java.util.Set;
+public class CustomerServiceImpl implements CustomerService {
+	
+	private List<Customer> customers = new ArrayList<Customer>();
+	private Set<Customer> sortedCustomer = new TreeSet<>();
+	private Customer customer;
+	
+	/**
+	 *@author 이시화
+	 *findBy 메서드 구현  
+	 * int no과 String id 추출위해 
+	 */
+	Customer findBy(int no) {
+		Customer customer = null;
+		for (int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).getNo() == no) {
+				customer = customers.get(i);
+				break;
+			}
+			
+		}
+		return customer;
+	}
+	Customer findBy(String id) {
+		Customer customer = null;
+		for (int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).getId() == id) {
+				customer = customers.get(i);
+				break;
+			}
+			
+		}
+		return customer;
+	}
+	/**
+	 * @author 이창용
+	 * register 메서드 구현 예정
+	 */
+	
+// int no, int money, String id, String password, String address
+	@Override
+	public void register() {
+//		int no = 100;
+//		int money = 100000;
+		String id = nextLine("아이디를 입력해 주세요 :");
+		String password = nextLine("비밀번호를 입력해 주세요 :"); //CustomerUtils Scanner 호출		
+		String address = nextLine("주소를 입력해주세요 :");		
+	
+		Customer customer = new Customer (0 ,100000 , id,password,address);
+	}
+	
+	
+
+	@Override
+	public void modify() {
+		
+	}
+	/**
+	 * @author 이시화
+	 * delete 메서드 구현
+	 */
+	@Override
+	public void delete() {
+		 customers.remove(findBy(nextLine("삭제할 회원의 아이디를 입력하세요")));
+		
+	}
+
+	@Override
+	public void list() { // 회원번호순 정렬
+
+		Collection<Customer> c2 = customers;// 커스터머 리스트를 담는 공간
+//		Collections.sort(c2); //정렬하고 싶은데 오류남
+
+		System.out.println("회원번호   ID   PASSWORD   주소   자산");// 출력구분
+		System.out.println("======================================");// 구분선
+		for (Customer c1 : c2) {// 향상for문으로 c1의 리스트 출력
+			System.out.println(c1);
+
+		}
+	}
+
+}

@@ -1,0 +1,13 @@
+package service;
+
+import vo.Order;
+import vo.Cart;
+import vo.Customer;
+
+public interface OrderService {
+
+    void buy();
+    void sales();
+    void salesList();
+    
+}

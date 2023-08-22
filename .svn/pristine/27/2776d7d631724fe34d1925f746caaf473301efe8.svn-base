@@ -1,0 +1,16 @@
+package team3;
+
+public class Board {
+	{
+		System.out.println("박연재");
+		
+		System.out.println("dfdf");
+		System.out.println("ffff");
+		System.out.println("ㅋㅋㅋㅋㅋㅋ");
+		System.out.println("Ddddd");
+		System.out.println("ㅋㅋㅋㅋㅋ");;
+	}
+
+
+	
+}

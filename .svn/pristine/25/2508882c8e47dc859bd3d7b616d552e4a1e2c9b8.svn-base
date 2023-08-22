@@ -1,0 +1,115 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import vo.Cart;
+import vo.Product;
+
+public class CartServiceImpl implements CartService {
+	private static CartService cartService = new CartServiceImpl();
+
+	private CartServiceImpl() {
+
+	}
+
+	public static CartService getInstance() {
+		return cartService;
+
+	}
+
+	private List<Cart> cart = new ArrayList<Cart>();
+
+	public List<Cart> getCart() {
+		return cart;
+	}
+
+	@Override
+	public void add() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void list() {
+		// TODO Auto-generated method stub
+//		String list 
+	}
+
+}
+
+////	public static final String Product = null;
+////	public static CartServiceImpl map;
+////	public static Object entry;
+//
+//// 장바구니
+//class Cart<Object> {
+//	public int count; // 수량
+//	public int total; // 합계
+//	public int totalPrice; // 상품 금액
+//	public int totalcnt; // 상품 갯수
+//
+//	public int getCart() {
+//
+//	}
+//
+//	public void setCart(int Cart) {
+//		this.count = Cart;
+//	}
+//
+//	public int getcount() {
+//		return total;
+//	}
+//
+//	public Cart(int (count) int (total) int (total) int totalPrice int totalcnt) {
+//	this.count = count;
+//	this.total = total;
+//	this.totalPrice = totalPrice;
+//	this.totalcnt = totalcnt;
+//	
+//	}
+//
+//	public String() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//}
+//
+//	// 장바구니 담기
+//	ArrayList<Cart> cart = new ArrayList<Cart>();Carts.add(new Cart(Product,FRUIT));Carts.add(new Cart(Product,PORK,BELLY));Carts.add(new Cart(Product,CARROT));
+//
+//	for(
+//	int i = 0;i<carts.size();i++)
+//	{
+//		System.out.println(cart.get(i).toString);
+//	}
+//
+//	for(
+//	Cart c:cart)
+//	{
+//		Object PORK;
+//		if (c.getProbuct()getProbuct()== PORK,BELLY );
+//		c.setCart(10000);
+//		c.setCart(5000);
+//		c.setCart(2000);
+//		c.setSum(c.getcount()*c.getCart(.getcount());
+//	
+//	System.out.println();System.out.println("-----PORK,BELLY가 10000-----");System.out.println("------FRUIT 5000 ------");
+//	int i = 0; for(Cart c:carts)
+//	
+//		if (c.getcount().gettotalPrice(){
+//		Cart.remove(i);	
+//		}
+//		i++;
+//	}
+//	
+//	for (Cart c : carts) {
+//		System.out.println(c);
+//	}
+//		

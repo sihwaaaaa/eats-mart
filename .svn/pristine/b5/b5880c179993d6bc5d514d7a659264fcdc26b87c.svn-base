@@ -1,0 +1,24 @@
+package service;
+
+import static utils.CustomerUtils.nextInt;
+
+import vo.Buy;
+import vo.Cart;
+import vo.Customer;
+
+public interface MarketService {
+
+	// 주문서를 가져옵니다.
+	// 주문서에 적혀있는대로 결제할려합니다.
+	// 결제하시겠습니까? 라는 질문에 답하고
+	// 결제 완료 후의 영수증을 보여줌
+	
+	
+	void getBuy(Customer customer, Cart cart, Buy buy);
+	
+	void buyResult(Customer customer, Cart cart, Buy buy);
+	
+
+	
+	
+}

@@ -1,0 +1,27 @@
+package team3;
+
+public class CustomerService implements Service {
+
+	@Override
+	public void register() { // 입력만 받으면 됨.
+
+	}
+
+	@Override
+	public void modify() { // 수정(회원정보 : 아이디, 비밀번호, 주소) 7~8 회원정보 수정 눌렀을 때
+		
+	}
+
+	@Override
+	public void delete() { // 삭제
+
+	}
+
+	@Override
+	public void list() { // 등록
+
+	}
+
+	// 추상클래스 이름 형용사 우선 커스터머 서비스 먼저 구현
+
+}

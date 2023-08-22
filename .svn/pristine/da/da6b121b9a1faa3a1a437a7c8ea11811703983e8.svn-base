@@ -1,0 +1,12 @@
+package team3;
+
+public interface Service {
+	
+	void Customer();//고객정보
+	void Product();//상품정보
+	void Cart();//장바구니
+	void buy();//구매기능, 주문서
+	void CustomerService();//회원가입
+	
+	
+}

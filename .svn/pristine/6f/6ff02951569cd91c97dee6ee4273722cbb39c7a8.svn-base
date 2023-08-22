@@ -1,0 +1,81 @@
+package service;
+
+import static utils.CustomerUtils.nextInt;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import vo.Buy;
+import vo.Cart;
+import vo.Customer;
+import vo.Product;
+
+public class MarketServiceImpl implements MarketService{
+	private List<Product> products = new ArrayList<Product>();
+	private Set<Product> setpro = new TreeSet<Product>();
+
+	// 장바구니 담기까지의 과정.서비스를 구현
+	// 키오스크가 앞에있다고 생각하자.
+	// 구현 순서.
+	// 0. 카데고리 설정 1. 과일, 2. 가전제품 3. 생필품 4. 사무용품
+	// 1. 과일을 누르면 하위 카테고리 설정
+	// 1. 물품명을 입력 하세요(정수로)
+	// 2. 물품 개수를 입력 하세요(정수로)
+	// 3. 선택하신 "물품명" + "개수" = "총 금액" 입니다
+	// 4. 구매 하시겠습니까?
+
+//	public static void main(String[] args) {
+//		ProductServiceImpl Pro = new ProductServiceImpl();
+//		Pro.categoryDifference();
+//	}
+
+	public void categoryDifference() {		
+		System.out.println(products);
+		
+	}
+	
+	
+	
+	
+	// 주문 결과를 보여주는 서비스
+	
+	
+	
+	
+	private List<Buy> buyList = new ArrayList<Buy>();
+	private Customer customer;	// 현재 회원
+	private Buy buy;			// buy => 
+	
+	// 총 주문서
+	@Override
+	public void buyResult(Customer customer, Cart cart, Buy buy) {
+		// TODO Auto-generated method stub
+		this.customer = customer;
+		this.buy = buy;
+		
+		
+		
+		String check = "주문 결제를 완료하시겠습니까? 1. 예   2. 아니오";
+		boolean result =  nextInt(check) == 1 ? true : false;
+		if(result) {
+			// 현재 고객의 정보와 카트에 있는 상품들 전부 불러옴
+			
+		}
+		
+		
+	}
+
+	
+	
+	
+	
+	// 주문서 불러옴
+	@Override
+	public void getBuy(Customer customer, Cart cart, Buy buy) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

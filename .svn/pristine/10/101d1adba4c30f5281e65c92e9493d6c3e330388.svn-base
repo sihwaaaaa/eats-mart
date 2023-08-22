@@ -1,0 +1,29 @@
+package vo;
+
+/**
+ * 
+ * @author 박연재
+ *
+ */
+public class Customer {
+	
+	private int no;				// 회원번호
+	private int money;			// 자산
+	private String id;			// 아이디
+	private String password;	// 비밀번호
+	private String address;		// 주소
+	
+	public Customer(int no, int money, String id, String password, String address) {	
+		// 들어온 인자들을 Custormer의 필드에 저장
+		
+		
+		this.no = no;
+		this.money = money;
+		this.id = id;
+		this.password = password;
+		this.address = address;
+		
+		
+	}
+	
+}

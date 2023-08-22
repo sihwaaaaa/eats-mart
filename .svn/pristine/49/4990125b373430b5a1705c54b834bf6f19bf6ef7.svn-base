@@ -1,0 +1,101 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import vo.Order;
+import vo.Cart;
+import vo.Customer;
+
+public class OrderServiceImpl implements OrderService {
+	/**
+	 * @author 이시화 
+	 * 싱글턴
+	 */
+	private static OrderService orderService = new OrderServiceImpl();
+
+	private OrderServiceImpl() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static OrderService getInstance() {
+		return orderService;
+	}
+
+	/**
+	 * @이시화 
+	 * 필드선언 및 싱글턴
+	 */
+	CustomerService customerService = CustomerServiceImpl.getInstance();
+//	CartService cartService = CartServiceImpl.getInstance();
+	ProductService productService = ProductServiceImpl.getInstance();
+
+	private List<Order> orders = new ArrayList<Order>();// 지금까지 주문서모음 매출조회 위해서
+
+	/**
+	 * @author 이시화 
+	 * 구매 기능 구현 구매 버튼시 장바구니 불러와서 목록 출력
+	 */
+	@Override
+	public void buy(Customer customer, Cart cart) {
+		Customer user = customerService.getLoginUser();
+//		Cart userCart = cartService.getCart(); // 카트 리스트or 프로덕트해쉬맵 받아와야함- 상의필요 ? 커스터머가 가지고 있는 카트를 땡겨와야하지 않나? 고민중
+		/**
+		 * 주문서 형태
+		 * 상품명 갯수 금액 쭉 출력
+		 * 토탈 갯수와 금액
+		 */
+		System.out.println("====================="+ user.getId() + "님 주문서 ======================");
+		System.out.println();
+
+	}
+	// 주문서 불러오기
+	
+//	@Override
+//	public void getOrder(Customer customer, Cart cart) {
+//		buy = new Order();
+//		String sum = null;
+//		if (csi.customer == csi.findBy(customer.getNo())) { // 만약에 번호를 입력받아서 조회된 회원이 일치하면,
+//
+//			System.out.println("===================== 주문서 ======================");
+//			System.out.println("고객명    (상품별)    상품갯수   총 금액");
+//			sum = String.format("%4s    %4d    %4d", csi.customer.getId(), cart.getTotalcnt(), cart.getTotalPrice());
+//
+//		}
+//
+//		System.out.println("================ 주문서 ================");
+//		System.out.println("고객명    (상품별)    상품갯수   총 금액");
+//		sum = String.format("%4s    %4d    %4d", customer.getId(), cart.getTotalcnt(), cart.getTotalPrice());
+//
+//		System.out.println(sum);
+//	}
+
+//	public static void main(String[] args) {
+//		OrderServiceImpl bsi = new OrderServiceImpl();
+//		bsi.getOrder(new Customer(0, "w", "w", "W", 1000), new Cart(100, 33));
+//		System.out.println();
+//	}
+
+//	@Override
+//	public void decideBuy() {
+//
+//	}
+//
+//	@Override
+//	public void sort() {
+//		// TODO Auto-generated method stub
+//
+//	}
+//	public void buySort() {
+//		buys.sort(new Comparator<Order>() {
+//			@Override
+//			public int compare(Order o1, Order o2) {
+//				// TODO Auto-generated method stub
+//				return o1.getNo() - o2.getNo();
+//			}
+//
+//		});
+//	}
+
+}
